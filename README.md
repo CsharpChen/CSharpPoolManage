@@ -10,8 +10,9 @@
 
 ## 创建一个mysql的连接池 例子
 
-```
+> 创建Mysql 连接 并且打开连接  
 
+```
 public class MysqlObj : IObjRealization<MySqlConnection>
 {
     public MySqlConnection RealizationObj()
@@ -23,7 +24,13 @@ public class MysqlObj : IObjRealization<MySqlConnection>
         return conn;
     }
 }
-
+```
+> 关闭Mysql数据库连接    
+```
+public void ObjClose(MySqlConnection t)
+{
+    t.Close();
+}
 ```
 
 > 然后 `OptionManagePool<MySqlConnection, MysqlObj>.GetOneObj();` 就可以直接获取一个现在 没有在使用的 连接对象
