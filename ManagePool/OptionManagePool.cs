@@ -14,11 +14,11 @@ namespace ManagePool
         /// <summary>
         /// 启动定时器的时间
         /// </summary>
-        public static int StartTimerTime = 1000 * 60 * 1;
+        public static int StartTimerTime = 1000 * 20 * 1;
         /// <summary>
         /// 删除老的对象的时间
         /// </summary>
-        public static int RemoveObjectTime = 60;
+        public static int RemoveObjectTime = 30;
         /// <summary>
         /// 池保存的集合
         /// </summary>
@@ -65,6 +65,10 @@ namespace ManagePool
                     foreach (var a in RemoveObj)
                     {
                         AllObj.Remove(a);
+                        if(a != null)
+                        {
+                            (new T2()).ObjClose((a as TempEntity).ObjT); 
+                        }
                     }
                     AllObj.Remove(null);
                 }

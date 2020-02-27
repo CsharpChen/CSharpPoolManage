@@ -13,5 +13,6 @@ namespace ManagePool
     public interface IObjRealization<T> where T: class,new()
     {
         T RealizationObj();
+        void ObjClose(T t);
     }
 }

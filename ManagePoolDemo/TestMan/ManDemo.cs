@@ -12,19 +12,10 @@ namespace ManagePoolDemo.TestMan
     {
         public static void Start() 
         {
-            //while (true)
-            //{
-            //    Console.Read();
-            //    var OB = OptionManagePool<ManManageEntity, ManObj>.GetOneObj();
-            //    OB.MakeWork();
-            //    OptionManagePool<ManManageEntity, ManObj>.Recovery(OB);
-            //}
+            //OptionManagePool<ManManageEntity, ManObj>.RemoveObjectTime = 0; // 关闭移除对象
+            //OptionManagePool<ManManageEntity, ManObj>.StartTimerTime = 0; //关闭定时器
 
-
-            //OptionManagePool<ManManageEntity, ManObj>.RemoveObjectTime = 0;
-            //OptionManagePool<ManManageEntity, ManObj>.StartTimerTime = 0;
-
-            OptionManagePool<ManManageEntity, ManObj>.CreateObject(50);
+            OptionManagePool<ManManageEntity, ManObj>.CreateObject(50); //初始化创建 50个工人
             int num = 0;
             while (true)
             {

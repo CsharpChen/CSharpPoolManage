@@ -13,7 +13,7 @@ namespace ManagePoolDemo.TestMysql
     {
         public static void Start() 
         {
-            // OptionManagePool<MySqlConnection, MysqlObj>.CreateObject(50);
+            // OptionManagePool<MySqlConnection, MysqlObj>.CreateObject(50); // 初始化创建50个连接池
             int num = 0;
             while (true)
             {
