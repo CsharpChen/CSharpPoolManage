@@ -11,7 +11,7 @@
 ## 创建一个mysql的连接池 例子
 
 ```
-@Override
+
 public class MysqlObj : IObjRealization<MySqlConnection>
 {
     public MySqlConnection RealizationObj()
@@ -23,9 +23,10 @@ public class MysqlObj : IObjRealization<MySqlConnection>
         return conn;
     }
 }
+
 ```
 
-> 然后 OptionManagePool<MySqlConnection, MysqlObj>.GetOneObj(); 就可以直接获取一个现在 没有在使用的 连接对象
+> 然后 `OptionManagePool<MySqlConnection, MysqlObj>.GetOneObj();` 就可以直接获取一个现在 没有在使用的 连接对象
 
 ## OptionManagePool 说明
 > OptionManagePool就是主要的操作类  
@@ -35,5 +36,5 @@ public class MysqlObj : IObjRealization<MySqlConnection>
 > OptionManagePool<MySqlConnection, MysqlObj>.StartTimerTime = 0;  
 > RemoveObjectTime 是对象从创建开始多长时间内 多少秒以后 移除 不在使用  
 > StartTimerTime 是多长时间启动一下定时器 就是管理这个对象的时候 可以固定一个时间 执行一些操作  
-> 具体可以看看我写的一些Demo  
+> 具体可以看看我写的一些 Demo  TestMysql 和 TestMan  
 
