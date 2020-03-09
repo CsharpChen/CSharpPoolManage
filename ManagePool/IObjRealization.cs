@@ -14,5 +14,6 @@ namespace ManagePool
     {
         T RealizationObj();
         void ObjClose(T t);
+        void ObjRecovery(T t);
     }
 }

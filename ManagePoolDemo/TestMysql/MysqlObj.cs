@@ -31,5 +31,13 @@ namespace ManagePoolDemo.TestMysql
         {
             t.Close();
         }
+        /// <summary>
+        /// 对象回收时 需要执行的操作
+        /// </summary>
+        /// <param name="t"></param>
+        public void ObjRecovery(MySqlConnection t)
+        {
+            // 什么都不做
+        }
     }
 }

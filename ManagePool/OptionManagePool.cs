@@ -14,11 +14,11 @@ namespace ManagePool
         /// <summary>
         /// 启动定时器的时间
         /// </summary>
-        public static int StartTimerTime = 1000 * 20 * 1;
+        public static int StartTimerTime = 1000 * 60 * 5;
         /// <summary>
         /// 删除老的对象的时间
         /// </summary>
-        public static int RemoveObjectTime = 30;
+        public static int RemoveObjectTime = 60 * 10;
         /// <summary>
         /// 池保存的集合
         /// </summary>
@@ -65,9 +65,9 @@ namespace ManagePool
                     foreach (var a in RemoveObj)
                     {
                         AllObj.Remove(a);
-                        if(a != null)
+                        if (a != null)
                         {
-                            (new T2()).ObjClose((a as TempEntity).ObjT); 
+                            (new T2()).ObjClose((a as TempEntity).ObjT);
                         }
                     }
                     AllObj.Remove(null);
@@ -81,12 +81,16 @@ namespace ManagePool
         /// <param name="t"></param>
         public static void Recovery(T t)
         {
-            TempEntity TE = new TempEntity()
+            lock (AllObj)
             {
-                ObjT = t,
-                IsUse = false
-            };
-            AllObj.Add(TE);
+                new T2().ObjRecovery(t);
+                TempEntity TE = new TempEntity()
+                {
+                    ObjT = t,
+                    IsUse = false
+                };
+                AllObj.Add(TE);
+            }
         }
 
         /// <summary>
@@ -95,19 +99,16 @@ namespace ManagePool
         /// <returns></returns>
         public static T GetOneObj()
         {
-            if (AllObj.Count <= 0)
+            lock (AllObj)
             {
-                lock (AllObj)
+                if (AllObj.Count <= 0)
                 {
                     var TE = CreateNewObj();
                     var ObjT = TE.ObjT;
                     AllObj.Remove(TE);
                     return ObjT;
                 }
-            }
-            else
-            {
-                lock (AllObj)
+                else
                 {
                     try
                     {
@@ -123,7 +124,6 @@ namespace ManagePool
                         AllObj.Remove(TE);
                         return ObjT;
                     }
-
                 }
             }
         }
@@ -133,14 +133,17 @@ namespace ManagePool
         /// <returns></returns>
         private static TempEntity CreateNewObj()
         {
-            T2 t2 = new T2();
-            TempEntity TE = new TempEntity()
+            lock (AllObj)
             {
-                ObjT = t2.RealizationObj(),
-                IsUse = true
-            };
-            AllObj.Add(TE);
-            return TE;
+                T2 t2 = new T2();
+                TempEntity TE = new TempEntity()
+                {
+                    ObjT = t2.RealizationObj(),
+                    IsUse = true
+                };
+                AllObj.Add(TE);
+                return TE;
+            }
         }
         /// <summary>
         /// 管理对象
